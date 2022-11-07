@@ -1,0 +1,11 @@
+h1 USER_LIST_PAGE
+hr
+
+//- PUG: vòng lặp - "EACH IN"
+ul DANH SACH USERS:
+    each user in listUsers
+        //- PUG: lấy giá trị biến = toán tử #{}
+        li #{user.name}
+
+hr
+a(href='/') click - link HOME_PAGE
