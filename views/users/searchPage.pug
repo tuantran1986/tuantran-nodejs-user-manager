@@ -1,0 +1,24 @@
+h1 USER_SEARCH_PAGE
+hr
+
+//- FORM : SEARCH_REQUEST
+//- ACTION:
+//- METHOD:
+form(action='/users/search', method='GET')
+    //- HIỂN THỊ KEYSEARCH - sau khi có kết quả = "value=keyNameSearch"
+    input(type='text', name='keyNameSearch' value=keyNameSearch || '')
+    button SEARCH
+
+hr
+//- PUG - IF điều kiện
+//- PUG: vòng lặp - "EACH IN"
+if listUsers && listUsers.length
+    ul DANH SACH USERS_FILTER:
+        each user in listUsers
+            //- PUG: lấy giá trị biến = toán tử #{}
+            li #{user.name || 'N/A'}
+
+hr
+a(href='/') click - link HOME_PAGE
+br
+a(href='/users') click - link LIST_USER_PAGE

@@ -29,20 +29,38 @@ app.get('/', (req, res) => {
     res.render('index', { pageName: 'HomePage' });
 })
 
+// CRUD - 1 = RETRY = READ: find({})
 app.get('/users', async (req, res) => {
 
     const userList = await userModel.find({});      // ĐỌC DỮ LIỆU - TỪ : "DATABASE"
+    // console.log('userList', userList);
 
     // RES.RENDER - trả về : "PAGE_HTML"
         // TS1: nội dung trong địa chỉ = "views/users/index.pug"
         // TS2: truyền "mảng listUsers" vào VIEWS: bằng toán tử {}
-    res.render('users/index', { listUsers: userList});
+    res.render('users/index', { listUsers: userList || []});
 
     // res.render('users/index', { listUsers: [
     //     { id: 1, name: 'tuantran'},
     //     { id: 2, name: 'thanhthu'},
     //     { id: 3, name: 'quocanh'}
     // ]});
+})
+
+
+// CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
+app.get('/users/searchPage', async (req, res) => {
+    res.render('users/searchPage');
+})
+
+app.get('/users/search', async (req, res) => {
+    const paramUrl = req.query;     // lấy dữ liệu từ URL = "REQ.QUERY"
+
+    const regexName = new RegExp(`${paramUrl.keyNameSearch}+`, 'i');
+    const userList = await userModel.find({ name: regexName });     // DB : FIND - REGEX
+
+    // truyền dữ liệu vào VIEW = [THAM SỐ THỨ 2] = "listUser" + "keyNameSearch"
+    res.render('users/searchPage', { listUsers: userList || [], keyNameSearch: paramUrl.keyNameSearch });
 })
 
 
