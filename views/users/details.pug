@@ -1,0 +1,23 @@
+h1 USER_DETAILS
+hr
+
+h3 THÔNG TIN CHI TIẾT - USER: 
+ul
+    //- DETAILS 6 - nhận dữ liệu USER và hiển thị ở VIEW
+    //- PUG: lấy giá trị biến = toán tử #{}
+    li 
+        span ID = 
+        b #{user._id}
+    li 
+        span NAME = 
+        b #{user.name}
+    li 
+        span MAIL = 
+        b #{user.email}
+
+hr
+a(href='/') click - link HOME_PAGE
+br
+a(href='/users/createPage') click - link CREATE_USER_PAGE
+br
+a(href='/users/searchPage') click - link SEARCH_USER_PAGE

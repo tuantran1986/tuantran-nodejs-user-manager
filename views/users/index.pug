@@ -5,7 +5,13 @@ hr
 ul DANH SACH USERS:
     each user in listUsers
         //- PUG: lấy giá trị biến = toán tử #{}
-        li #{user.name}
+        li 
+            b #{user.name}
+            span      -     
+            b #{user.email}
+            span      -     
+            //- DETAIL 1 - click VIEWDETAILS : A HREF - đẩy ID lên URL
+            a(href='/users/details/' + user._id) view details
 
 hr
 a(href='/') click - link HOME_PAGE

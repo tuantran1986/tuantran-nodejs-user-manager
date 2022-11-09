@@ -85,6 +85,26 @@ app.post('/users/createRequest', async (req, res) => {
     res.redirect('/users');
 })
 
+
+// CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
+// CYDB - DETAILS 2 - "KHAI BÁO BIẾN = userId" bằng dấu HAI CHẤM
+app.get('/users/details/:id', async (req, res) => {
+    // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
+    const paramsUrl = req.params;
+    const userId = paramsUrl.id;
+    // console.log('req.params = ', req.params);
+
+
+    // CYDB - DETAILS 4 - TRUY VẤN DỮ LIỆU = "Model.findOne"
+    const userDetail = await userModel.findOne({ _id: userId });   // cydb - AWAIT
+    // Model.findOne : trả về "1 phần tử"
+    // Model.find : trả về "MẢNG phần tử"
+
+    res.render('users/details', { user: userDetail });
+})
+
+
+
 // BÀI 5 - NODEMON: (đã làm ở bài 1) - PACKAGE.JSON: "start": "nodemon --inspect index.js"
 
 app.listen(PORT, () => console.log(`Node Server running on port = ${PORT}`));
