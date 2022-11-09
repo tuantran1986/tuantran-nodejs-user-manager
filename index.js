@@ -100,6 +100,7 @@ app.get('/users/details/:id', async (req, res) => {
     // Model.findOne : trả về "1 phần tử"
     // Model.find : trả về "MẢNG phần tử"
 
+    // CYDB - DETAILS 5 - truyền USER vào VIEW để hiển thị
     res.render('users/details', { user: userDetail });
 })
 
