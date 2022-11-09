@@ -2,6 +2,17 @@ const express = require('express');
 const app = express();
 const PORT = 3000;
 
+
+// CẤU HÌNH - "PUG"
+app.set('views', './views');    // LINK đến thư mục ./VIEWS
+app.set('view engine', 'pug');  // thiết lạp VIEW ENGINE = PUG
+
+// CẤU HÌNH - "BODY-PARSER"
+const bodyParser = require('body-parser');
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+
 // 1. require 2.connect 3.schema 4.model
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/webSale');  // "tên DB" = webSale
@@ -14,9 +25,6 @@ const userModel = mongoose.model('users', userSchema);  // "MODEL": quản lý C
 
 
 
-// CONFIG - PUG
-app.set('views', './views');    // LINK đến thư mục ./VIEWS
-app.set('view engine', 'pug');  // thiết lạp VIEW ENGINE = PUG
 
 // ROUTER
 app.get('/', (req, res) => {
@@ -53,7 +61,7 @@ app.get('/users/searchPage', async (req, res) => {
     res.render('users/searchPage');
 })
 
-app.get('/users/search', async (req, res) => {
+app.get('/users/searchRequest', async (req, res) => {
     const paramUrl = req.query;     // lấy dữ liệu từ URL = "REQ.QUERY"
 
     const regexName = new RegExp(`${paramUrl.keyNameSearch}+`, 'i');
@@ -62,6 +70,21 @@ app.get('/users/search', async (req, res) => {
     // truyền dữ liệu vào VIEW = [THAM SỐ THỨ 2] = "listUser" + "keyNameSearch"
     res.render('users/searchPage', { listUsers: userList || [], keyNameSearch: paramUrl.keyNameSearch });
 })
+
+
+// CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
+app.get('/users/createPage', async (req, res) => {
+    res.render('users/createPage');
+})
+// CYDB - METHOD POST : 2 - CRUD = CREATE
+app.post('/users/createRequest', async (req, res) => {
+    const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
+    const userList = await userModel.create(userInsert);     // thêm = MODEL.CREATE
+
+    // điều hướng về trang "/users" = RES.REDIRECT
+    res.redirect('/users');
+})
+
 
 
 app.listen(PORT, () => console.log(`Node Server running on port = ${PORT}`));

@@ -1,0 +1,26 @@
+h1 CREATE_USER_PAGE
+hr
+
+//- FORM : SEARCH_REQUEST
+//- ACTION:
+//- METHOD: POST - lấy data = "REQUEST.BODY" / cần BODY-PARSER
+form(action='/users/createRequest', method='POST')
+    //- HIỂN THỊ KEYSEARCH - sau khi có kết quả = "value=keyNameSearch"
+    label name
+    input(type='text', name='name')
+    br
+    label email
+    input(type='text', name='email')
+    br
+    label password
+    input(type='text', name='password')
+    br
+
+    button(type='submit') CREATE
+
+hr
+a(href='/') click - link HOME_PAGE
+br
+a(href='/users') click - link LIST_USER_PAGE
+br
+a(href='/users/searchPage') click - link SEARCH_USER_PAGE
