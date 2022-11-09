@@ -85,6 +85,6 @@ app.post('/users/createRequest', async (req, res) => {
     res.redirect('/users');
 })
 
-
+// BÀI 5 - NODEMON: (đã làm ở bài 1) - PACKAGE.JSON: "start": "nodemon --inspect index.js"
 
 app.listen(PORT, () => console.log(`Node Server running on port = ${PORT}`));
