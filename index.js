@@ -12,7 +12,7 @@ const bodyParser = require('body-parser');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
+// BÀI 6 - MONGO DB + MONGOOSE (đã làm ở bài 2)
 // 1. require 2.connect 3.schema 4.model
 const mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost:27017/webSale');  // "tên DB" = webSale
