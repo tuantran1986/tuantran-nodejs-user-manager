@@ -15,6 +15,8 @@ app.use(express.urlencoded({ extended: true }));
 // MVC - MODEL : GỌI VÀO = REQUIRE = IMPORT
 let userModel = require('./models/userModel');
 
+// 1. require : userRouter
+const userRouter = require('./routers/userRouter');
 
 
 // ROUTER
@@ -28,72 +30,13 @@ app.get('/', (req, res) => {
     res.render('index', { pageName: 'HomePage' });
 })
 
-// CRUD - 1 = RETRY = READ: find({})
-app.get('/users', async (req, res) => {
 
-    const userList = await userModel.find({});      // ĐỌC DỮ LIỆU - TỪ : "DATABASE"
-    // console.log('userList', userList);
+// 2. app.use - userRouter
+    // TS1: "PATH GỐC ROUTER" = '/users' - sẽ được gắn vào PATH CON - của userRouter
+    // TS2: ROUTER = userRouter
+app.use('/users', userRouter);
 
-    // RES.RENDER - trả về : "PAGE_HTML"
-        // TS1: nội dung trong địa chỉ = "views/users/index.pug"
-        // TS2: truyền "mảng listUsers" vào VIEWS: bằng toán tử {}
-    res.render('users/index', { listUsers: userList || []});
-
-    // res.render('users/index', { listUsers: [
-    //     { id: 1, name: 'tuantran'},
-    //     { id: 2, name: 'thanhthu'},
-    //     { id: 3, name: 'quocanh'}
-    // ]});
-})
-
-
-// CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
-app.get('/users/searchPage', async (req, res) => {
-    res.render('users/searchPage');
-})
-
-app.get('/users/searchRequest', async (req, res) => {
-    const paramUrl = req.query;     // lấy dữ liệu từ URL = "REQ.QUERY"
-
-    const regexName = new RegExp(`${paramUrl.keyNameSearch}+`, 'i');
-    const userList = await userModel.find({ name: regexName });     // DB : FIND - REGEX
-
-    // truyền dữ liệu vào VIEW = [THAM SỐ THỨ 2] = "listUser" + "keyNameSearch"
-    res.render('users/searchPage', { listUsers: userList || [], keyNameSearch: paramUrl.keyNameSearch });
-})
-
-
-// CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
-app.get('/users/createPage', async (req, res) => {
-    res.render('users/createPage');
-})
-// CYDB - METHOD POST : 2 - CRUD = CREATE
-app.post('/users/createRequest', async (req, res) => {
-    const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
-    const userList = await userModel.create(userInsert);     // thêm = MODEL.CREATE
-
-    // điều hướng về trang "/users" = RES.REDIRECT
-    res.redirect('/users');
-})
-
-
-// CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
-// CYDB - DETAILS 2 - "KHAI BÁO BIẾN = userId" bằng dấu HAI CHẤM
-app.get('/users/details/:id', async (req, res) => {
-    // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
-    const paramsUrl = req.params;
-    const userId = paramsUrl.id;
-    // console.log('req.params = ', req.params);
-
-
-    // CYDB - DETAILS 4 - TRUY VẤN DỮ LIỆU = "Model.findOne"
-    const userDetail = await userModel.findOne({ _id: userId });   // cydb - AWAIT
-    // Model.findOne : trả về "1 phần tử"
-    // Model.find : trả về "MẢNG phần tử"
-
-    // CYDB - DETAILS 5 - truyền USER vào VIEW để hiển thị
-    res.render('users/details', { user: userDetail });
-})
+// 3. xóa bỏ - các router user
 
 
 

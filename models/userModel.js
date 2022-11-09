@@ -8,5 +8,5 @@ const userSchema = new mongoose.Schema({
 });                                                     // "SCHEMA" : cấu trúc 1 DOC
 const userModel = mongoose.model('users', userSchema);  // "MODEL": quản lý COLLECTION USER
 
-// CYDB - MODULE.EXPORTS - bản chất là 1 OBJECT
+// CYDB - MODULE.EXPORTS (có S)- bản chất là 1 OBJECT
 module.exports = userModel;
