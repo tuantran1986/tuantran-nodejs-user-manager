@@ -1,21 +1,28 @@
-h1 USER_LIST_PAGE
-hr
+//- 1. sử dụng LAYOUT = EXTENDS
 
-//- PUG: vòng lặp - "EACH IN"
-ul DANH SACH USERS:
-    each user in listUsers
-        //- PUG: lấy giá trị biến = toán tử #{}
-        li 
-            b #{user.name}
-            span      -     
-            b #{user.email}
-            span      -     
-            //- DETAIL 1 - click VIEWDETAILS : A HREF - đẩy ID lên URL
-            a(href='/users/details/' + user._id) view details
+extends ../layout/common.pug
+block content
 
-hr
-a(href='/') click - link HOME_PAGE
-br
-a(href='/users/createPage') click - link CREATE_USER_PAGE
-br
-a(href='/users/searchPage') click - link SEARCH_USER_PAGE
+    //- 2. NỘI DUNG RIÊNG TỪNG BLOCK
+
+    h1 USER_LIST_PAGE
+    hr
+
+    //- PUG: vòng lặp - "EACH IN"
+    ul DANH SACH USERS:
+        each user in listUsers
+            //- PUG: lấy giá trị biến = toán tử #{}
+            li 
+                b #{user.name}
+                span      -     
+                b #{user.email}
+                span      -     
+                //- DETAIL 1 - click VIEWDETAILS : A HREF - đẩy ID lên URL
+                a(href='/users/details/' + user._id) view details
+
+    hr
+    a(href='/') click - link HOME_PAGE
+    br
+    a(href='/users/createPage') click - link CREATE_USER_PAGE
+    br
+    a(href='/users/searchPage') click - link SEARCH_USER_PAGE
