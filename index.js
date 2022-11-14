@@ -3,6 +3,20 @@ const app = express();
 const PORT = 3000;
 
 
+// CẤU HÌNH - FILE TĨNH = "STATIC" : nằm ở thư mục "PUBLIC"
+var options = {
+    dotfiles: 'ignore',
+    etag: false,
+    extensions: ['htm', 'html'],
+    index: false,
+    maxAge: '1d',
+    redirect: false,
+    setHeaders: function (res, path, stat) {
+        res.set('x-timestamp', Date.now())
+    }
+};
+app.use(express.static('public', options)); // thư mục chứa FILE TĨNH = "PUBLIC"
+
 // CẤU HÌNH - "PUG"
 app.set('views', './views');    // LINK đến thư mục ./VIEWS
 app.set('view engine', 'pug');  // thiết lạp VIEW ENGINE = PUG
@@ -11,6 +25,7 @@ app.set('view engine', 'pug');  // thiết lạp VIEW ENGINE = PUG
 const bodyParser = require('body-parser');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
 
 // MVC - MODEL : GỌI VÀO = REQUIRE = IMPORT
 let userModel = require('./models/userModel');
@@ -25,15 +40,15 @@ app.get('/', (req, res) => {
     // res.send('<h3>tuantran - hello world</h3>');     // trả về HTML : segment + page
 
     // RES.RENDER - trả về : "PAGE_HTML"
-        // TS1: nội dung trong địa chỉ = "views/index.pug"
-        // TS2: truyền "biến pageName" vào VIEWS: bằng toán tử {}
+    // TS1: nội dung trong địa chỉ = "views/index.pug"
+    // TS2: truyền "biến pageName" vào VIEWS: bằng toán tử {}
     res.render('index', { pageName: 'HomePage' });
 })
 
 
 // 2. app.use - userRouter
-    // TS1: "PATH GỐC ROUTER" = '/users' - sẽ được gắn vào PATH CON - của userRouter
-    // TS2: ROUTER = userRouter
+// TS1: "PATH GỐC ROUTER" = '/users' - sẽ được gắn vào PATH CON - của userRouter
+// TS2: ROUTER = userRouter
 app.use('/users', userRouter);
 
 // 3. xóa bỏ - các router user

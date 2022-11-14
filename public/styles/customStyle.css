@@ -1,0 +1,13 @@
+/* customStyle - css */
+
+.imgLogo {
+    width: 25px;
+    margin-left: -10px;
+}
+
+a.navbar-brand.brandName {
+    color: #0d6efd;
+    text-shadow: 1px 1px #0d6efd;
+    font-weight: bold;
+    /* text-decoration: underline; */
+}
