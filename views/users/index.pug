@@ -1,28 +1,38 @@
 //- 1. sử dụng LAYOUT = EXTENDS
-
 extends ../layout/common.pug
 block content
 
     //- 2. NỘI DUNG RIÊNG TỪNG BLOCK
+    .container
+        .row.mt-2
+            .col-2
+                h1 ListUsers
+            .col-4
+            .col-2
+                button(class="mt-2 ml-2 btn") 
+                    a(href="/users/createPage") USER-CREATE
+            .col-4
+                form.ml-auto(action="/users/searchPage", method="GET" class="container")
+                    div(class="row justify-content-start")
+                        input(type="text", name="nameKeySearch", class="col-8 mr-2")
+                        button(class="col-4 ml-2 btn btn-primary") SEARCH
 
-    h1 USER_LIST_PAGE
-    hr
+        .row.mt-4
+            table.table
+                hr
+                thead
+                    tr
+                    th(scope='col') ORDER
+                    th(scope='col') NAME
+                    th(scope='col') EMAIL
+                    th(scope='col') ACTION
+                tbody
 
-    //- PUG: vòng lặp - "EACH IN"
-    ul DANH SACH USERS:
-        each user in listUsers
-            //- PUG: lấy giá trị biến = toán tử #{}
-            li 
-                b #{user.name}
-                span      -     
-                b #{user.email}
-                span      -     
-                //- DETAIL 1 - click VIEWDETAILS : A HREF - đẩy ID lên URL
-                a(href='/users/details/' + user._id) view details
-
-    hr
-    a(href='/') click - link HOME_PAGE
-    br
-    a(href='/users/createPage') click - link CREATE_USER_PAGE
-    br
-    a(href='/users/searchPage') click - link SEARCH_USER_PAGE
+                    each user, key in listUsers
+                        tr
+                            th(scope='row') #{key + 1}
+                            td #{user.name}
+                            td #{user.email}
+                            td 
+                                a(href='/users/details/' + user._id, class="card-link") view details
+                                //- a(href='/users/' + user.id, class="card-link") viewDetails

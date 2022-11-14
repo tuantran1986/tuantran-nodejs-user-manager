@@ -7,6 +7,28 @@ html(lang="en")
         title TUANTRAN-NODEJS-SRR
     body 
 
+        //- MENU
+        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+            .container-fluid
+                a.navbar-brand(href='/') TUANTRAN
+                button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+                    span.navbar-toggler-icon
+                #navbarNav.collapse.navbar-collapse
+                    ul.navbar-nav
+                        li.nav-item
+                            a.nav-link.active(aria-current='page', href='/') 
+                                b 
+                                    u HomePage
+                        li.nav-item
+                            a.nav-link(href='/users') 
+                                b 
+                                    u UserList
+                        li.nav-item
+                            a.nav-link(href='/users/searchPage') Search User
+                        li.nav-item
+                            a.nav-link(href='/users/createPage') Create User
+                        
+
         //- SỬ DỤNG "BLOCK CONTENT" = thay đổi nội dung
         block content
         
