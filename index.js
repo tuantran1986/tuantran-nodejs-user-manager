@@ -32,6 +32,8 @@ let userModel = require('./models/userModel');
 
 // 1. require : userRouter
 const userRouter = require('./routers/userRouter');
+// 2. require : test Middle Ware
+const testMiddleWareRouter = require('./routers/testMiddleWareRouter');
 
 
 // ROUTER
@@ -53,6 +55,7 @@ app.use('/users', userRouter);
 
 // 3. xóa bỏ - các router user
 
+app.use('/testMiddleWare', testMiddleWareRouter);
 
 
 // BÀI 5 - NODEMON: (đã làm ở bài 1) - PACKAGE.JSON: "start": "nodemon --inspect index.js"
