@@ -1,7 +1,11 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 const PORT = 3000;
 
+
+// CẤU HÌNH - COOKIE
+app.use(cookieParser());
 
 // CẤU HÌNH - FILE TĨNH = "STATIC" : nằm ở thư mục "PUBLIC"
 var options = {
