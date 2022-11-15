@@ -25,11 +25,30 @@ const userModel = require('../models/userModel');
     }
 
     module.exports.createRequest = async (req, res) => {
-        const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
-        const userList = await userModel.create(userInsert);     // thêm = MODEL.CREATE
-    
-        // điều hướng về trang "/users" = RES.REDIRECT
-        res.redirect('/users');
+        // khai báo: "MẢNG" chứa các "MESSAGE LỖI"
+        let errors = [];
+        if (req.body && !req.body.name) {
+            errors.push('error: NAME is empty');
+        }
+        if (req.body && !req.body.email) {
+            errors.push('error: EMAIL is empty');
+        }
+        if (req.body && !req.body.password) {
+            errors.push('error: PASSWORD is empty');
+        }
+ 
+        if (errors.length > 0) {
+            // TH1 - "CÓ LỖI" : truyền vào mảng lỗi ERRORS để hiển thị
+            // hiển thị "GIÁ TRỊ CŨ mà USER nhập" = lastValueInput
+            res.render('users/createPage', { errors: errors, lastValueInput: req.body });
+        } else {
+            // TH2 - "KO LỖI" : tạo USER và thêm vào DB
+            const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
+            const userList = await userModel.create(userInsert);     // thêm = MODEL.CREATE
+            
+            // điều hướng về trang "/users" = RES.REDIRECT
+            res.redirect('/users');
+        }
     }
 
     module.exports.getDetails = async (req, res) => {

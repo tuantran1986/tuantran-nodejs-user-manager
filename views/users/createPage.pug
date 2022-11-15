@@ -17,19 +17,23 @@ block content
                 //- HIỂN THỊ KEYSEARCH - sau khi có kết quả = "value=keyNameSearch"
                 h3(class="text-center mt-2") CREATE_USER_PAGE
 
+                //- "VALIDATE" - nếu có lỗi thì hiển thị "MESSAGE LỖI"
+                if errors
+                    each err in errors
+                        div(class="alert alert-danger" role="alert") #{err}
+
                 .form-group
                     label(for='name') name
-                    input.form-control(type='text', name='name', id='name', placeholder='Enter name')
+                    input.form-control(type='text', name='name', value= lastValueInput && lastValueInput.name ? lastValueInput.name : '', id='name', placeholder='Enter name')
                     br
                 .form-group
                     label(for='email') email
-                    input.form-control(type='text', name='email', id='email', placeholder='Enter email')
+                    input.form-control(type='text', name='email', value= lastValueInput && lastValueInput.email ? lastValueInput.email : '', id='email', placeholder='Enter email')
                     br
                 .form-group
                     label(for='password') password
-                    input.form-control(type='text', name='password', id='password', placeholder='Enter password')
+                    input.form-control(type='text', name='password', value= lastValueInput && lastValueInput.password ? lastValueInput.password : '', id='password', placeholder='Enter password')
                     br
 
                 div(class="d-grid gap-2")
                     button.btn.btn-primary.mt-2(type='submit') CREATE USER
-
