@@ -15,6 +15,12 @@ const userRouter = express.Router();
 const userController = require('../controllers/userController');
 const { validateCreateUser } = require('../validate/validateCreateUser');
 
+// TEST-SET COOKIE:
+userRouter.get('/testCookie', (req, res, next) => {
+    res.cookie('key-session-id', 123456);
+    res.send('router: test cookie');
+});  // thay CALLBACK = CONTROLLER
+
 // CRUD - 1 = RETRY = READ: find({})
 userRouter.get('/', userController.index);  // thay CALLBACK = CONTROLLER
 
