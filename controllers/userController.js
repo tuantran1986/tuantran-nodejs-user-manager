@@ -24,30 +24,25 @@ const userModel = require('../models/userModel');
         res.render('users/searchPage', { listUsers: userList || [], keyNameSearch: paramUrl.keyNameSearch });
     }
 
-    module.exports.createRequest = async (req, res) => {
-        // khai báo: "MẢNG" chứa các "MESSAGE LỖI"
-        let errors = [];
-        if (req.body && !req.body.name) {
-            errors.push('error: NAME is empty');
-        }
-        if (req.body && !req.body.email) {
-            errors.push('error: EMAIL is empty');
-        }
-        if (req.body && !req.body.password) {
-            errors.push('error: PASSWORD is empty');
-        }
- 
-        if (errors.length > 0) {
-            // TH1 - "CÓ LỖI" : truyền vào mảng lỗi ERRORS để hiển thị
-            // hiển thị "GIÁ TRỊ CŨ mà USER nhập" = lastValueInput
-            res.render('users/createPage', { errors: errors, lastValueInput: req.body });
-        } else {
+    // NEXT() : để chuyển sang middleWare sau
+    module.exports.createRequest = async (req, res, next) => {
+
+        // "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"
+        console.log('******   "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"     ******');
+        console.log('res.locals.passValidateCreateUser = ', res.locals.passValidateCreateUser);
+
+        if (res.locals.passValidateCreateUser === true) {
             // TH2 - "KO LỖI" : tạo USER và thêm vào DB
             const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
             const userList = await userModel.create(userInsert);     // thêm = MODEL.CREATE
             
             // điều hướng về trang "/users" = RES.REDIRECT
             res.redirect('/users');
+        } else {
+            // TH1 - "CÓ LỖI" : truyền vào mảng lỗi ERRORS để hiển thị
+            // hiển thị "GIÁ TRỊ CŨ mà USER nhập" = lastValueInput
+            console.log('res.locals.errorsCreateUser = ', res.locals.errorsCreateUser);
+            res.render('users/createPage', { errors: res.locals.errorsCreateUser, lastValueInput: req.body });
         }
     }
 
@@ -65,4 +60,3 @@ const userModel = require('../models/userModel');
         // CYDB - DETAILS 5 - truyền USER vào VIEW để hiển thị
         res.render('users/details', { user: userDetail });
     }
-

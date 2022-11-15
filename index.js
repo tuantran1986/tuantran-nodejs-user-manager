@@ -32,7 +32,7 @@ let userModel = require('./models/userModel');
 
 // 1. require : userRouter
 const userRouter = require('./routers/userRouter');
-// 2. require : test Middle Ware
+// 2. require : test MiddleWare Router
 const testMiddleWareRouter = require('./routers/testMiddleWareRouter');
 
 

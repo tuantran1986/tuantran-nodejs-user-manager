@@ -13,6 +13,7 @@ const userRouter = express.Router();
 
 // IMPORT = "REQUIRED CONTROLLER"
 const userController = require('../controllers/userController');
+const { validateCreateUser } = require('../validate/validateCreateUser');
 
 // CRUD - 1 = RETRY = READ: find({})
 userRouter.get('/', userController.index);  // thay CALLBACK = CONTROLLER
@@ -29,8 +30,11 @@ userRouter.get('/createPage', async (req, res) => {
     res.render('users/createPage');
 });
 
+
 // CYDB - METHOD POST : 2 - CRUD = CREATE
-userRouter.post('/createRequest', userController.createRequest);
+// sử dụng MIDDLEWARE - VALIDATE dữ liệu: "validateCreateUser" => "userController.createRequest"
+userRouter.post('/createRequest', validateCreateUser, userController.createRequest);
+
 
 // CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
 // CYDB - DETAILS 2 - "KHAI BÁO BIẾN = userId" bằng dấu HAI CHẤM
