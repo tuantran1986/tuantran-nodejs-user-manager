@@ -29,7 +29,9 @@ module.exports.loginRequest = async (req, res) => {
             errors.push('error: PASSWORD is WRONG');
             res.render('auth/login', { errors: errors, lastValueInput: req.body });
             return;
-        } else {            
+        } else {
+            // LOGIN THÀNH CÔNG - "GHI COOKIE vào BROWSER" : key = 'userId'; value = currentUser._id
+            res.cookie('userId', currentUser._id);
             res.redirect('/');  // ĐÚNG PASSWORD => REDIRECT đến HomePage
         }
     }

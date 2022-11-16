@@ -14,7 +14,7 @@ const userRouter = express.Router();
 // IMPORT = "REQUIRED CONTROLLER"
 const userController = require('../controllers/userController');
 const { validateCreateUser } = require('../validate/validateCreateUser');
-
+const { authRequire } = require('../middleware/authMiddleware');
 
 
 
@@ -32,8 +32,9 @@ const { validateCreateUser } = require('../validate/validateCreateUser');
 
 
 
-// CRUD - 1 = RETRY = READ: find({})
-userRouter.get('/', userController.index);  // thay CALLBACK = CONTROLLER
+// CRUD - 1 = RETRY = READ: find({})   :   [1. "USERLIST"]
+// thêm "MIDDLEWARE = authRequire" - ĐÊ "CHECK - USERID" trong "REQ.COOKIES"
+userRouter.get('/', authRequire, userController.index);  // thay CALLBACK = CONTROLLER
 
 // CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
 userRouter.get('/searchPage', async (req, res) => {
