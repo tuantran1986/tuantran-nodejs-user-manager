@@ -11,37 +11,50 @@ html(lang="en")
 
         //- MENU
         nav.navbar.navbar-expand-lg.navbar-light.bg-light
-            .container-fluid
-                a.navbar-brand.brandName(href='/') TUANTRAN
-                //- STATIC : sử dụng FILE ẢNH + và CLASS trong FILE STYLE
-                img(src='/images/Logo_Hust_Vertical.png', class='imgLogo')
-                //- img(src='/images/Logo_Hust_Vertical.png', width='25px')
-                button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
-                    span.navbar-toggler-icon
-                #navbarNav.collapse.navbar-collapse
-                    ul.navbar-nav
-                        //- HOME_PAGE
-                        li.nav-item
-                            a.nav-link.active(aria-current='page', href='/') 
-                                b 
-                                    u HomePage
-                                    
-                        //- ĐĂNG NHẬP - ĐĂNG XUẤT
-                        li.nav-item
-                            a.nav-link.active(aria-current='page', href='/auth/login') Login
-                        li.nav-item
-                            a.nav-link.active(aria-current='page', href='/auth/logout') Logout
-                                
-                        //- QUẢN LÝ - USERS
-                        li.nav-item
-                            a.nav-link(href='/users') 
-                                b 
-                                    u UserList
-                        li.nav-item
-                            a.nav-link(href='/users/searchPage') Search User
-                        li.nav-item
-                            a.nav-link(href='/users/createPage') Create User
-                        
+            .container-fluid                
+                if currentUserLocal
+                    //- a.navbar-brand.brandName(href='/') TUANTRAN
+                    //- STATIC : sử dụng FILE ẢNH + và CLASS trong FILE STYLE
+                    img(src='/images/Logo_Hust_Vertical.png', class='imgLogo')
+                    //- img(src='/images/Logo_Hust_Vertical.png', width='25px')
+                    button.navbar-toggler(type='button', data-bs-toggle='collapse', data-bs-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
+                        span.navbar-toggler-icon
+                    #navbarNav.collapse.navbar-collapse
+                        ul.navbar-nav
+                            //- HOME_PAGE
+                            li.nav-item
+                                a.nav-link.active(aria-current='page', href='/') 
+                                    b 
+                                        u HomePage
+                                        
+                            //- ĐĂNG NHẬP - ĐĂNG XUẤT
+                                if currentUserLocal
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page', href='/auth/logout') Logout
+                                else
+                                    li.nav-item
+                                        a.nav-link.active(aria-current='page', href='/auth/login') Login
 
+                                    
+                            //- QUẢN LÝ - USERS
+                            li.nav-item
+                                a.nav-link(href='/users') 
+                                    b 
+                                        u UserList
+                            li.nav-item
+                                a.nav-link(href='/users/searchPage') Search User
+                            li.nav-item
+                                a.nav-link(href='/users/createPage') Create User
+                            
+                    //- CURRENT_USER + ĐĂNG NHẬP + ĐĂNG XUẤT
+
+                    p.currentUserNameStyle #{currentUserLocal.name}
+                    img.avatar(src='/images/Logo_Hust_Vertical.png', class='imgAvatar')
+                    a.nav-link.active(aria-current='page', href='/auth/logout') 
+                        b Logout
+                else
+                    a.nav-link.loginText(aria-current='page', href='/auth/login') 
+                        b 
+                            u Login
         //- SỬ DỤNG "BLOCK CONTENT" = thay đổi nội dung
         block content        
