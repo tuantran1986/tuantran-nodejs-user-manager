@@ -56,7 +56,8 @@ app.get('/', (req, res) => {
 // 2. app.use - userRouter
 // TS1: "PATH GỐC ROUTER" = '/users' - sẽ được gắn vào PATH CON - của userRouter
 // TS2: ROUTER = userRouter
-app.use('/users', userRouter);
+    // "thêm MIDDLEWARE - AUTHREQUIRE" vào "trước USER_ROUTER" : "sẽ AUTHENCATION tất cả ROUTER CON" - USER_ROUTER
+app.use('/users', authRequire, userRouter);
 app.use('/auth', authRouter);
 
 // 3. xóa bỏ - các router user
