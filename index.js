@@ -36,6 +36,7 @@ let userModel = require('./models/userModel');
 
 // 1. require : userRouter
 const userRouter = require('./routers/userRouter');
+const authRouter = require('./routers/authRouter');
 // 2. require : test MiddleWare Router
 const testMiddleWareRouter = require('./routers/testMiddleWareRouter');
 
@@ -56,6 +57,7 @@ app.get('/', (req, res) => {
 // TS1: "PATH GỐC ROUTER" = '/users' - sẽ được gắn vào PATH CON - của userRouter
 // TS2: ROUTER = userRouter
 app.use('/users', userRouter);
+app.use('/auth', authRouter);
 
 // 3. xóa bỏ - các router user
 
