@@ -1,3 +1,4 @@
+const md5 = require('md5');
 const userModel = require('../models/userModel');
 
 // cydb - "MODULE.EXPORTS" (có S) : bản chất là 1 OBJECT
@@ -25,7 +26,8 @@ module.exports.loginRequest = async (req, res) => {
         res.render('auth/login', { errors: errors, lastValueInput: req.body });
         return;
     } else {
-        if (currentUser.password !== password) {
+        // if (currentUser.password !== password) {
+        if (currentUser.password !== md5(password)) {   // 2.MÃ HÓA PASS = "MD5" : [hashPassword = md5(password)]
             errors.push('error: PASSWORD is WRONG');
             res.render('auth/login', { errors: errors, lastValueInput: req.body });
             return;

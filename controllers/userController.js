@@ -1,3 +1,4 @@
+const md5 = require('md5');
 const userModel = require('../models/userModel');
 
 // cydb - "MODULE.EXPORTS" (có S) : bản chất là 1 OBJECT
@@ -33,7 +34,15 @@ const userModel = require('../models/userModel');
 
         if (res.locals.passValidateCreateUser === true) {
             // TH2 - "KO LỖI" : tạo USER và thêm vào DB
-            const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
+            // const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
+
+            const hashPassWord = md5(req.body.password);    // 1.mã hóa password = MD5
+            const userInsert = {
+                name: req.body.name,
+                email: req.body.email,
+                password: hashPassWord      // 1.mã hóa password = MD5
+            };
+
             const userList = await userModel.create(userInsert);     // thêm = MODEL.CREATE
             
             // điều hướng về trang "/users" = RES.REDIRECT

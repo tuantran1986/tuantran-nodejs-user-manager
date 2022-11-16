@@ -39,6 +39,7 @@ const userRouter = require('./routers/userRouter');
 const authRouter = require('./routers/authRouter');
 // 2. require : test MiddleWare Router
 const testMiddleWareRouter = require('./routers/testMiddleWareRouter');
+const { authRequire } = require('./middleware/authMiddleware');
 
 
 // ROUTER
