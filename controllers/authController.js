@@ -8,6 +8,14 @@ module.exports.login = async (req, res) => {
     res.render('auth/login');
 }
 
+module.exports.logout = async (req, res) => {
+    // xóa bỏ COOKIE - "USER_ID" + render ra giao diện LOGIN
+    res.clearCookie('userId');  // res.clearCookie("key");
+    // res.cookie('userId', '');
+    
+    res.render('auth/login');
+}
+
 module.exports.loginRequest = async (req, res) => {
 
     const { email, password } = req.body;

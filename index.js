@@ -43,7 +43,7 @@ const { authRequire } = require('./middleware/authMiddleware');
 
 
 // ROUTER
-app.get('/', (req, res) => {
+app.get('/', authRequire, (req, res) => {
     // res.send('tuantran - hello world');              // trả về TEXT
     // res.send('<h3>tuantran - hello world</h3>');     // trả về HTML : segment + page
 

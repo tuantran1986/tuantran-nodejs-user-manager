@@ -4,7 +4,7 @@ module.exports.authRequire = (req, res, next) => {
     console.log('ĐỌC COOKIES = req.cookies', req.cookies);
 
     if (!req.cookies.userId) {
-        res.redirect('auth/login');
+        res.redirect('/auth/login');
         return;
     }
 
@@ -13,7 +13,7 @@ module.exports.authRequire = (req, res, next) => {
     const currentUser = userModel.find({ _id: req.cookies.userId });
 
     if (!currentUser) {
-        res.redirect('auth/login');
+        res.redirect('/auth/login');
         return;
     }
 
