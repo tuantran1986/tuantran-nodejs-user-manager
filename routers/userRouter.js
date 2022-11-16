@@ -37,26 +37,26 @@ const { authRequire } = require('../middleware/authMiddleware');
 userRouter.get('/', authRequire, userController.index);  // thay CALLBACK = CONTROLLER
 
 // CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
-userRouter.get('/searchPage', async (req, res) => {
+userRouter.get('/searchPage', authRequire, async (req, res) => {
     res.render('users/searchPage');
 });
 
-userRouter.get('/searchRequest', userController.searchRequest);
+userRouter.get('/searchRequest', authRequire, userController.searchRequest);
 
 // CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
-userRouter.get('/createPage', async (req, res) => {
+userRouter.get('/createPage', authRequire, async (req, res) => {
     res.render('users/createPage');
 });
 
 
 // CYDB - METHOD POST : 2 - CRUD = CREATE
 // sử dụng MIDDLEWARE - VALIDATE dữ liệu: "validateCreateUser" => "userController.createRequest"
-userRouter.post('/createRequest', validateCreateUser, userController.createRequest);
+userRouter.post('/createRequest', authRequire, validateCreateUser, userController.createRequest);
 
 
 // CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })
 // CYDB - DETAILS 2 - "KHAI BÁO BIẾN = userId" bằng dấu HAI CHẤM
-userRouter.get('/details/:id', userController.getDetails)
+userRouter.get('/details/:id', authRequire, userController.getDetails)
 
 
 // 5. nhớ MODULE.EXPORTS (có S) : USER_ROUTER
