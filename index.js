@@ -4,8 +4,10 @@ const app = express();
 const PORT = 3000;
 
 
-// CẤU HÌNH - COOKIE
-app.use(cookieParser());
+// CẤU HÌNH - "COOKIE THƯỜNG"
+    // app.use(cookieParser());
+// CẤU HÌNH - "SIGNED COOKIE" : có thêm - "SECRET STRING - là 1 chuỗi bất kỳ"
+app.use(cookieParser('secretStringLaMotChuoiBatKy'));
 
 // CẤU HÌNH - FILE TĨNH = "STATIC" : nằm ở thư mục "PUBLIC"
 var options = {

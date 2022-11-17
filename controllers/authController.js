@@ -41,7 +41,11 @@ module.exports.loginRequest = async (req, res) => {
             return;
         } else {
             // LOGIN THÀNH CÔNG - "GHI COOKIE vào BROWSER" : key = 'userId'; value = currentUser._id
-            res.cookie('userId', currentUser._id);
+
+                // "COOKIE - THƯỜNG" : chỉ có [ KEY + VALUE ]
+                    // res.cookie('userId', currentUser._id);
+                // "SIGNED - COOKIE" : thêm OPTION = { signed: true } : để biến thành - "SIGNED_COOKIE"
+                    res.cookie('userId', currentUser._id, { signed: true });
             res.redirect('/');  // ĐÚNG PASSWORD => REDIRECT đến HomePage
         }
     }
