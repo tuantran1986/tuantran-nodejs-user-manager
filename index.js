@@ -1,3 +1,7 @@
+// CẤU HÌNH - DOT.ENV - PROCESS.ENV : biến môi trường.
+    const dotenv = require('dotenv');
+    dotenv.config();
+
 const express = require('express');
 const cookieParser = require('cookie-parser');
 const app = express();
@@ -7,7 +11,11 @@ const PORT = 3000;
 // CẤU HÌNH - "COOKIE THƯỜNG"
     // app.use(cookieParser());
 // CẤU HÌNH - "SIGNED COOKIE" : có thêm - "SECRET STRING - là 1 chuỗi bất kỳ"
-app.use(cookieParser('secretStringLaMotChuoiBatKy'));
+console.log('process.env: ', process.env);
+console.log('process.env.SECRET_KEY_SIGNED_COOKIE: ', process.env.SECRET_KEY_SIGNED_COOKIE);
+console.log('process.env.BIEN_MOI_TRUONG_CACH_3: ', process.env.BIEN_MOI_TRUONG_CACH_3);
+app.use(cookieParser(process.env.SECRET_KEY_SIGNED_COOKIE));
+// app.use(cookieParser('secretStringLaMotChuoiBatKy'));
 
 // CẤU HÌNH - FILE TĨNH = "STATIC" : nằm ở thư mục "PUBLIC"
 var options = {
