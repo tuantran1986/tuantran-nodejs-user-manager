@@ -26,6 +26,11 @@
     margin-bottom: 0px;
 }
 
+/*  */
+a.card-link.custom {
+    text-decoration: none;
+}
+
 /* product */
 .card.custom {
     height: 343px;

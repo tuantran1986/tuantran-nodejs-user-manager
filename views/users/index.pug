@@ -31,7 +31,8 @@ block content
                     each user, key in listUsers
                         tr
                             th(scope='row') #{key + 1}
-                            td #{user.name}
+                            td 
+                                a(href='/users/details/' + user._id, class="card-link custom") #{user.name}
                             td #{user.email}
                             td 
                                 a(href='/users/details/' + user._id, class="card-link") view details
