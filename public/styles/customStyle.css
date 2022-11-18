@@ -25,3 +25,16 @@
     font-size: 16px;
     margin-bottom: 0px;
 }
+
+/* product */
+h5.card-title.custom {
+    height: 25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+p.card-text.custom {
+    height: 100px;
+    overflow: hidden;
+}

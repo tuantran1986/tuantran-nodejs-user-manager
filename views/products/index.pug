@@ -1,0 +1,30 @@
+//- CÁCH 2 - SỬ DỤNG KẾ THỪA - TRONG PUG = "EXTENDS" + "BLOCK CONTENT"
+
+extends ../layout/common.pug
+block content
+
+    .container
+        .row.mt-2
+            .col-6
+                h1 Products List
+            .col-2
+            .col-4
+                form.ml-auto(action="/users/searchRequest", method="GET" class="container")
+                    div(class="row justify-content-start")
+                        input(type="text", name="nameKeySearch", class="col-8 mr-2")
+                        button(class="col-4 ml-2 btn btn-primary") SEARCH
+
+            hr
+
+        .row.mt-4
+            //- 
+            each product in productList
+                .col-3.p-1
+                    //- .card.m-1(style='width: 18rem; height: 460px; padding: 4px')
+                    .card
+                        img.card-img-top(src=product.image, alt='Card image cap')
+                        .card-body
+                            h5.card-title.custom #{product.name}
+                            p.card-text.custom #{product.description}   
+                            div(class="d-grid gap-2")                        
+                                a.btn.btn-primary(href='/cart/add/' + product._id) add to cart

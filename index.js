@@ -47,6 +47,7 @@ let userModel = require('./models/userModel');
 // 1. require : userRouter
 const userRouter = require('./routers/userRouter');
 const authRouter = require('./routers/authRouter');
+const productRouter = require('./routers/productRouter');
 // 2. require : test MiddleWare Router
 const testMiddleWareRouter = require('./routers/testMiddleWareRouter');
 const { authRequire } = require('./middleware/authMiddleware');
@@ -68,7 +69,9 @@ app.get('/', authRequire, (req, res) => {
 // TS1: "PATH GỐC ROUTER" = '/users' - sẽ được gắn vào PATH CON - của userRouter
 // TS2: ROUTER = userRouter
     // "thêm MIDDLEWARE - AUTHREQUIRE" vào "trước USER_ROUTER" : "sẽ AUTHENCATION tất cả ROUTER CON" - USER_ROUTER
-app.use('/users', authRequire, userRouter);
+    app.use('/users', authRequire, userRouter);
+    app.use('/products', authRequire, productRouter);
+// rieng router nay - ko check auth
 app.use('/auth', authRouter);
 
 // 3. xóa bỏ - các router user
