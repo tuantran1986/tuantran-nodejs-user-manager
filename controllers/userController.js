@@ -17,7 +17,11 @@ const userModel = require('../models/userModel');
 
     module.exports.searchRequest = async (req, res) => {
         const paramUrl = req.query;     // lấy dữ liệu từ URL = "REQ.QUERY"
-    
+
+        // DEBUGGER
+        // THÊM "--INSPECT" vào dòng lệnh "SCRIPT:START" - "nodemon --inspect index.js"
+        // DEBUGGER
+        
         const regexName = new RegExp(`${paramUrl.keyNameSearch}+`, 'i');
         const userList = await userModel.find({ name: regexName });     // DB : FIND - REGEX
     
