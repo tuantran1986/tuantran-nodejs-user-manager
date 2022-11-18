@@ -31,24 +31,46 @@ block content
         
         .row.mt-2
             nav(aria-label='...')
+                //- CYDB - KHAI BÁO BIẾN "- VAR N = 1"
+                - var n = 1;
+                
                 //- TRÔI PHẢI: d-flex.justify-content-end
                 //- https://getbootstrap.com/docs/4.0/utilities/flex/
                 ul.pagination.d-flex.justify-content-end
+                    
+                    //- 1.PREVIOUS:
+                    if queryParams.currentPage == 1
+                        //- DISABLED
+                        li.page-item.disabled 
+                            a.page-link(href='/products/pagination?page=1') Previous
+                    else
+                        li.page-item
+                            a.page-link(href='/products/pagination?page=' + (queryParams.currentPage - 1)) Previous
 
-                    //- DISABLED
-                    //- li.page-item.disabled
-                    li.page-item
-                        a.page-link(href='/products/pagination?page=1', tabindex='-1') Previous
+                    //- 2.PAGE_NUMBER: .listPageNumber
+                    
+                    while n <= queryParams.countPages
+                        if n==queryParams.currentPage
+                            //- ACTIVE
+                            li.page-item.active
+                                //- CỘNG CHUỖI = '/products/pagination?page=' + n
+                                //- GÁN VALUE + TĂNG 1 : "=n++"
+                                a.page-link(href='/products/pagination?page=' + n)=n++
+                        else
+                            //- THƯỜNG
+                            li.page-item
+                                a.page-link(href='/products/pagination?page=' + n)=n++
+                    
 
-                    li.page-item
-                        a.page-link(href='/products/pagination?page=1') 1
-                    //- ACTIVE
-                    //- li.page-item.active
-                    li.page-item.active
-                        a.page-link(href='/products/pagination?page=2') 2 
-                        //- span.sr-only (current)
-                    li.page-item
-                        a.page-link(href='/products/pagination?page=3') 3
-
-                    li.page-item
-                        a.page-link(href='/products/pagination?page=3') Next
+                    //- 3.NEXT:
+                    if queryParams.currentPage == queryParams.countPages
+                        //- DISABLED
+                        li.page-item.disabled 
+                            a.page-link(href='/products/pagination?page=1') Next
+                    else
+                        //- KHAI BÁO BIẾN : "- var nextPage = "
+                        //- ++queryParams.currentPage : CỘNG TRƯỚC - GÁN SAU.
+                        - var nextPage = ++queryParams.currentPage
+                        li.page-item
+                            //- CỘNG CHUỖI = '/products/pagination?page=' + nextPage
+                            a.page-link(href='/products/pagination?page=' + nextPage) Next
