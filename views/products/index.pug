@@ -16,13 +16,13 @@ block content
 
             hr
 
-        .row.mt-4
+        .row.mt-2
             //- 
             each product in productList
                 .col-3.p-1
                     //- .card.m-1(style='width: 18rem; height: 460px; padding: 4px')
-                    .card
-                        img.card-img-top(src=product.image, alt='Card image cap')
+                    .card.custom
+                        img.card-img-top.custom(src=product.image, alt='Card image cap')
                         .card-body
                             h5.card-title.custom #{product.name}
                             p.card-text.custom #{product.description}   

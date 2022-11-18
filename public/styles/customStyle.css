@@ -27,6 +27,14 @@
 }
 
 /* product */
+.card.custom {
+    height: 343px;
+}
+
+img.card-img-top.custom {
+    height: 180px;
+}
+
 h5.card-title.custom {
     height: 25px;
     white-space: nowrap;
@@ -35,6 +43,9 @@ h5.card-title.custom {
 }
 
 p.card-text.custom {
-    height: 100px;
+    height: 48px;
     overflow: hidden;
+    text-align: justify;
 }
+
+/*  */
