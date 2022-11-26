@@ -1,4 +1,5 @@
 const express = require('express');
+const multer = require('multer');
 
 // 1. sử dụng EXPRESS.ROUTER
 const userRouter = express.Router();
@@ -16,6 +17,8 @@ const userController = require('../controllers/userController');
 const { validateCreateUser } = require('../validate/validateCreateUser');
 const { authRequire } = require('../middleware/authMiddleware');
 
+// 5. UPLOAD_FILE: thư mục chứa file được upload lên
+const upload = multer({ dest: 'public/uploads/'});
 
 
 // TEST-COOKIE:
@@ -51,7 +54,14 @@ userRouter.get('/createPage', async (req, res) => {
 
 // CYDB - METHOD POST : 2 - CRUD = CREATE
 // sử dụng MIDDLEWARE - VALIDATE dữ liệu: "validateCreateUser" => "userController.createRequest"
-userRouter.post('/createRequest', validateCreateUser, userController.createRequest);
+// MIDDLEWARE - UPLOAD FILE: 
+    // "single" : upload file đơn 
+    // tham số "avatarUser" === "tên biến" === "NAME của thẻ INPUT"
+userRouter.post('/createRequest', 
+    upload.single('avatarUser'), 
+    validateCreateUser, 
+    userController.createRequest
+);
 
 
 // CRUD - 1 = RETRY = SEARCH: find({ name: REGEX })

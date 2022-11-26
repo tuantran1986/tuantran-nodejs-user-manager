@@ -10,15 +10,20 @@ block content
     .container
         .row.mt-2
             hr
-            ul.pl-4
+            div.pl-4.userDetailContainer
                 //- DETAILS 6 - nhận dữ liệu USER và hiển thị ở VIEW
                 //- PUG: lấy giá trị biến = toán tử #{}
-                li 
-                    span ID = 
+                div
+                    img(src=user.avatar, class="imgAvatarDetail")
+                div.mt-4
+                    span 
+                        i ID = 
                     b #{user._id}
-                li 
-                    span NAME = 
+                div 
+                    span 
+                        i NAME = 
                     b #{user.name}
-                li 
-                    span MAIL = 
+                div 
+                    span 
+                        i MAIL = 
                     b #{user.email}

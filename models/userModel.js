@@ -4,6 +4,7 @@ mongoose.connect('mongodb://localhost:27017/webSale');  // "tên DB" = webSale
 const userSchema = new mongoose.Schema({
     name: String,
     email: String,
+    avatar: String,     // avatar: STRING
     password: String
 });                                                     // "SCHEMA" : cấu trúc 1 DOC
 const userModel = mongoose.model('users', userSchema);  // "MODEL": quản lý COLLECTION USER

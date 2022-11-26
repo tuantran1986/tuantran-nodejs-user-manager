@@ -23,6 +23,7 @@ block content
                 thead
                     tr
                     th(scope='col') ORDER
+                    th(scope='col') AVATAR
                     th(scope='col') NAME
                     th(scope='col') EMAIL
                     th(scope='col') ACTION
@@ -31,6 +32,8 @@ block content
                     each user, key in listUsers
                         tr
                             th(scope='row') #{key + 1}
+                            td 
+                                img(src=user.avatar, class="imgAvatarListUser")
                             td 
                                 a(href='/users/details/' + user._id, class="card-link custom") #{user.name}
                             td #{user.email}

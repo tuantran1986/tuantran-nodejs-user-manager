@@ -7,13 +7,14 @@ block content
 
 
     .container
-        .row.mt-2
+        .row.mt-2   
             div(class="col-3")
 
             //- FORM : SEARCH_REQUEST
             //- ACTION:
             //- METHOD: POST - lấy data = "REQUEST.BODY" / cần BODY-PARSER
-            form(action='/users/createRequest', method='POST', class="col-6")
+            //- ENCTYPE: upload file !!!
+            form(action='/users/createRequest', method='POST', enctype='multipart/form-data' class="col-6")
                 //- HIỂN THỊ KEYSEARCH - sau khi có kết quả = "value=keyNameSearch"
                 h3(class="text-center mt-2") CREATE_USER_PAGE
 
@@ -33,6 +34,10 @@ block content
                 .form-group
                     label(for='password') password
                     input.form-control(type='text', name='password', value= lastValueInput && lastValueInput.password ? lastValueInput.password : '', id='password', placeholder='Enter password')
+                    br
+                .form-group
+                    label(for='avatarUser') avatarUser
+                    input.form-control(type='file', name='avatarUser', value= lastValueInput && lastValueInput.avatarUser ? lastValueInput.avatarUser : '', id='avatarUser')
                     br
 
                 div(class="d-grid gap-2")

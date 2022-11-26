@@ -36,6 +36,13 @@ const userModel = require('../models/userModel');
         console.log('******   "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"     ******');
         console.log('res.locals.passValidateCreateUser = ', res.locals.passValidateCreateUser);
 
+        // console.log('req', req);
+        // console.log('req.file', req.file);
+
+        // ĐƯỜNG DẪN MẪU: "/uploads/830b36f504186b08f074ee0840c89edf"
+        const avatarPath = '/' + req.file.path.split('\\').slice(1).join('/');
+        console.log('=== avatarPath', avatarPath);
+
         if (res.locals.passValidateCreateUser === true) {
             // TH2 - "KO LỖI" : tạo USER và thêm vào DB
             // const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
@@ -44,6 +51,7 @@ const userModel = require('../models/userModel');
             const userInsert = {
                 name: req.body.name,
                 email: req.body.email,
+                avatar: avatarPath,         // thêm AVATAR = "chuỗi STRING"
                 password: hashPassWord      // 1.mã hóa password = MD5
             };
 
