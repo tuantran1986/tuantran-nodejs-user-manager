@@ -22,7 +22,7 @@ const userModel = require('../models/userModel');
         // THÊM "--INSPECT" vào dòng lệnh "SCRIPT:START" - "nodemon --inspect index.js"
         // DEBUGGER
         
-        const regexName = new RegExp(`${paramUrl.keyNameSearch}+`, 'i');
+        const regexName = paramUrl.keyNameSearch ? new RegExp(`${paramUrl.keyNameSearch}+`, 'i') : new RegExp(` `, 'i');
         const userList = await userModel.find({ name: regexName });     // DB : FIND - REGEX
     
         // truyền dữ liệu vào VIEW = [THAM SỐ THỨ 2] = "listUser" + "keyNameSearch"
