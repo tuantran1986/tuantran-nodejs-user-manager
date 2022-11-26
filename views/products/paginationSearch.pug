@@ -1,0 +1,44 @@
+//- CÁCH 2 - SỬ DỤNG KẾ THỪA - TRONG PUG = "EXTENDS" + "BLOCK CONTENT"
+
+extends ../layout/common.pug
+block content
+
+        .container
+            .row.mt-2            
+                h1 Products - Search Pagination
+            
+            form.row.mt-2.ml-auto(action="/products/paginationSearch", method="GET")
+                //- 
+                .col-4
+                    label(for='controlSelect1') SelectPage
+                    select#controlSelect1.form-control(name="page")
+                        - var n = 1;
+                        while n <= queryParams.countPages
+                            if(n == queryParams.currentPage)
+                                option(value=n, selected='')=n++
+                            else
+                                option(value=n)=n++
+
+                //- 
+                .col-6
+                    label(for='controlInput1') KeySearch
+                    input#controlInput1.form-control(type='text', name="nameKeySearch", value=queryParams.nameKeySearch)
+
+                //- 
+                div.col-2.mt-2.d-grid.gap-2
+                    button.btn.btn-primary.mt-2(type='submit') SEARCH
+
+            hr
+
+            .row.mt-2
+                //- 
+                each product in productList
+                    .col-3.p-1
+                        //- .card.m-1(style='width: 18rem; height: 460px; padding: 4px')
+                        .card.custom
+                            img.card-img-top.custom(src=product.image, alt='Card image cap')
+                            .card-body
+                                h5.card-title.custom #{product.name}
+                                p.card-text.custom #{product.description}   
+                                div(class="d-grid gap-2")                        
+                                    a.btn.btn-primary(href='/cart/add/' + product._id) add to cart
