@@ -8,8 +8,8 @@ block content
                 h1 Products - Search Pagination
             
             form.row.mt-2.ml-auto(action="/products/paginationSearch", method="GET")
-                //- 
-                .col-4
+                //- PAGE
+                .col-2
                     label(for='controlSelect1') SelectPage
                     select#controlSelect1.form-control(name="page")
                         - var n = 1;
@@ -19,10 +19,14 @@ block content
                             else
                                 option(value=n)=n++
 
-                //- 
-                .col-6
-                    label(for='controlInput1') KeySearch
+                //- NAME
+                .col-4
+                    label(for='controlInput1') Name
                     input#controlInput1.form-control(type='text', name="nameKeySearch", value=queryParams.nameKeySearch)
+                //- DESCRIPTION
+                .col-4
+                    label(for='controlInput2') Description
+                    input#controlInput2.form-control(type='text', name="descriptionKeySearch", value=queryParams.descriptionKeySearch)
 
                 //- 
                 div.col-2.mt-2.d-grid.gap-2

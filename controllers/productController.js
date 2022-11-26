@@ -44,13 +44,15 @@ module.exports.getProductPaginationSearchController = async (req, res, next) => 
 
     console.log('getProductPaginationSearchController : req.query', req.query);
     const nameKeySearch = req.query?.nameKeySearch || '';   // mac dinh = ''
+    const descriptionKeySearch = req.query?.descriptionKeySearch || '';   // mac dinh = ''
     const page = parseInt(req.query?.page || 1);            // mac dinh = 1
     const rowPerPage = 8;
 
     // 1.ĐẾM SỐ LƯỢNG PHẦN TỬ: trước khi phân trang
             // SEARCH = REGEX
             const regexName = nameKeySearch ? new RegExp(`${nameKeySearch}+`, 'i') : new RegExp(` `, 'i');
-            const countDocuments = await productModel.countDocuments({ name: regexName });
+            const regexDescription = descriptionKeySearch ? new RegExp(`${descriptionKeySearch}+`, 'i') : new RegExp(` `, 'i');
+            const countDocuments = await productModel.countDocuments({ name: regexName, description: regexDescription });
             const countPages = Math.floor(countDocuments / rowPerPage) || 1;    // Math.floor: làm tròn - xuống nguyên
             // console.log('countDocuments = ', countDocuments);
 
@@ -64,12 +66,13 @@ module.exports.getProductPaginationSearchController = async (req, res, next) => 
             const limit = rowPerPage;
 
         // SEARCH = REGEX
-            const productList = await productModel.find({ name: regexName }).skip(skip).limit(limit);
+            const productList = await productModel.find({ name: regexName, description: regexDescription }).skip(skip).limit(limit);
             // console.log('productList', productList);
             
     // 3. TRUYỀN BIẾN - VÀO VIEW: "queryParams = countPages + currentPage"
     let queryParams = {
         nameKeySearch: nameKeySearch,
+        descriptionKeySearch: descriptionKeySearch,
         countPages: countPages,
         currentPage: currentPage
         // currentRowPerPage: rowPerPage || 8 : để 8 sản phẩm 1 trang
