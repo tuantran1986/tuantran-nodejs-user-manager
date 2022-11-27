@@ -62,7 +62,9 @@ html(lang="en")
                     //- CURRENT_USER + ĐĂNG NHẬP + ĐĂNG XUẤT
 
                     p.currentUserNameStyle #{currentUserLocal.name}
-                    img.avatar(src='/images/Logo_Hust_Vertical.png', class='imgAvatar')
+                    //- AVATAR - lấy trong "currentUserLocal" = "RES.LOCAL"
+                    img.avatar(src=currentUserLocal.avatar, class='imgAvatar')
+                    //- img.avatar(src='/images/Logo_Hust_Vertical.png', class='imgAvatar')
                     a.nav-link.active(aria-current='page', href='/auth/logout') 
                         b Logout
                 else
