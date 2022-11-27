@@ -51,6 +51,8 @@ const productRouter = require('./routers/productRouter');
 // 2. require : test MiddleWare Router
 const testMiddleWareRouter = require('./routers/testMiddleWareRouter');
 const { authRequire } = require('./middleware/authMiddleware');
+// 4. "API"
+const productRouterAPI = require('./API/routers/productAPIrouter');
 
 
 // ROUTER
@@ -75,8 +77,12 @@ app.get('/', authRequire, (req, res) => {
 app.use('/auth', authRouter);
 
 // 3. xóa bỏ - các router user
-
 app.use('/testMiddleWare', testMiddleWareRouter);
+
+// 4. "API" - trả về dữ liệu JSON = RES.JSON
+app.use('/api', authRequire, productRouterAPI);      // ROUTER GỐC = '/api'
+// 4. "API" - trả về dữ liệu JSON = RES.JSON : bỏ AUTH - để "TEST = POSTMAN"
+app.use('/api/noAuthRequire/postman', productRouterAPI);      // ROUTER GỐC = '/api/noAuthRequire/postman'
 
 
 // BÀI 5 - NODEMON: (đã làm ở bài 1) - PACKAGE.JSON: "start": "nodemon --inspect index.js"
