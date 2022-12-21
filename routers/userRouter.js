@@ -68,6 +68,11 @@ userRouter.post('/createRequest',
 // CYDB - DETAILS 2 - "KHAI BÁO BIẾN = userId" bằng dấu HAI CHẤM
 userRouter.get('/details/:id', userController.getDetails)
 
+// CRUD - 2 = DELETE USER:
+userRouter.get('/delete/:id', userController.deleteForm)
+userRouter.post('/deleteRequest/:id', userController.deleteRequest)
+
+
 
 // 5. nhớ MODULE.EXPORTS (có S) : USER_ROUTER
 module.exports = userRouter;

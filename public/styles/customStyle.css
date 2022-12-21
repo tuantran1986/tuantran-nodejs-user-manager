@@ -84,3 +84,7 @@ p.card-text.custom {
 }
 
 /*  */
+span.space {
+    padding-left: 5px;
+    padding-right: 5px;
+}

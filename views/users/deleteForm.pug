@@ -1,0 +1,31 @@
+//- 1. sử dụng LAYOUT = EXTENDS
+
+extends ../layout/common.pug
+block content
+
+    //- 2. NỘI DUNG RIÊNG TỪNG BLOCK
+
+    h3(class="text-center mt-2") CONFIRM_DELETE_USER
+    
+    .container
+        form(action=`/users/deleteRequest/${user._id}`, method='POST', enctype='multipart/form-data' class="row mt-2")
+        
+            hr
+            div.pl-4.userDetailContainer
+                //- DETAILS 6 - nhận dữ liệu USER và hiển thị ở VIEW
+                //- PUG: lấy giá trị biến = toán tử #{}
+                div
+                    img(src=user.avatar, class="imgAvatarDetail")
+                div.mt-4
+                    span 
+                        i NAME = 
+                    b #{user.name}
+                div 
+                    span 
+                        i MAIL = 
+                    b #{user.email}
+                div(class="d-grid gap-2")
+                    //- CONFIRM DELETE
+                    button.btn.btn-primary.mt-2(type='submit') DELETE
+                    //- CANCEL : về USER_LIST
+                    a.btn.btn-danger.mt-2(href='/users') CANCEL

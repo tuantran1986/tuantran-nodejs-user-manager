@@ -81,3 +81,32 @@ const userModel = require('../models/userModel');
         // CYDB - DETAILS 5 - truyền USER vào VIEW để hiển thị
         res.render('users/details', { user: userDetail });
     }
+
+
+    // DELETE USERS:
+    module.exports.deleteForm = async (req, res) => {
+        // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
+        const paramsUrl = req.params;
+        const userId = paramsUrl.id;
+    
+        // CYDB - DETAILS 4 - TRUY VẤN DỮ LIỆU = "Model.findOne"
+        const userDetail = await userModel.findOne({ _id: userId });   // cydb - AWAIT
+        // Model.findOne : trả về "1 phần tử"   // Model.find : trả về "MẢNG phần tử"
+    
+        // 1.render ra "giao dien - CONFIRM DELETE USER"
+        res.render('users/deleteForm', { user: userDetail });
+    }
+    module.exports.deleteRequest = async (req, res) => {
+        // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
+        const paramsUrl = req.params;
+        const userId = paramsUrl.id;
+    
+        // CYDB - DETAILS 4 - XÓA DỮ LIỆU = "Model.deleteOne"
+        const userDelete = await userModel.deleteOne({ _id: userId });   // cydb - AWAIT
+        
+        // Model.find : trả về "MẢNG phần tử"   // Model.findOne : trả về "1 phần tử"
+        const userList = await userModel.find({});
+
+        // CYDB - sau khi xóa dữ liệu xong - thì hiển thị LISTUSERS mới
+        res.render('users/index', { listUsers: userList || [] });
+    }
