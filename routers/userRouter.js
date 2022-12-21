@@ -72,6 +72,14 @@ userRouter.get('/details/:id', userController.getDetails)
 userRouter.get('/delete/:id', userController.deleteForm)
 userRouter.post('/deleteRequest/:id', userController.deleteRequest)
 
+// CRUD - 3 = UPDATE USER:
+userRouter.get('/update/:id', userController.updateForm)
+// VALIDATE FORM: "UPDATE" dùng chung với "CREATE"
+userRouter.post('/updateRequest/:id', 
+    upload.single('avatarUser'), 
+    validateCreateUser, 
+    userController.updateRequest
+)
 
 
 // 5. nhớ MODULE.EXPORTS (có S) : USER_ROUTER

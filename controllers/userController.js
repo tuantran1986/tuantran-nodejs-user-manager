@@ -29,7 +29,7 @@ const userModel = require('../models/userModel');
         res.render('users/searchPage', { listUsers: userList || [], keyNameSearch: paramUrl.keyNameSearch });
     }
 
-    // NEXT() : để chuyển sang middleWare sau
+    // 1 - CREATE USER: NEXT() : để chuyển sang middleWare sau
     module.exports.createRequest = async (req, res, next) => {
 
         // "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"
@@ -39,9 +39,13 @@ const userModel = require('../models/userModel');
         // console.log('req', req);
         // console.log('req.file', req.file);
 
-        // ĐƯỜNG DẪN MẪU: "/uploads/830b36f504186b08f074ee0840c89edf"
-        const avatarPath = '/' + req.file.path.split('\\').slice(1).join('/');
+        let avatarPath = '';
+        if (req && req.file) {
+            // ĐƯỜNG DẪN MẪU: "/uploads/830b36f504186b08f074ee0840c89edf"
+            avatarPath = '/' + req.file.path.split('\\').slice(1).join('/');
+        }
         console.log('=== avatarPath', avatarPath);
+
 
         if (res.locals.passValidateCreateUser === true) {
             // TH2 - "KO LỖI" : tạo USER và thêm vào DB
@@ -67,6 +71,7 @@ const userModel = require('../models/userModel');
         }
     }
 
+    // 2 - GET DETAILS:
     module.exports.getDetails = async (req, res) => {
         // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
         const paramsUrl = req.params;
@@ -83,7 +88,7 @@ const userModel = require('../models/userModel');
     }
 
 
-    // DELETE USERS:
+    // 3 - DELETE USERS:
     module.exports.deleteForm = async (req, res) => {
         // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
         const paramsUrl = req.params;
@@ -109,4 +114,66 @@ const userModel = require('../models/userModel');
 
         // CYDB - sau khi xóa dữ liệu xong - thì hiển thị LISTUSERS mới
         res.render('users/index', { listUsers: userList || [] });
+    }
+
+    // 4 - UPDATE USERS:
+    module.exports.updateForm = async (req, res) => {
+        // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
+        const paramsUrl = req.params;
+        const userId = paramsUrl.id;
+    
+        // CYDB - DETAILS 4 - TRUY VẤN DỮ LIỆU = "Model.findOne"
+        const userDetail = await userModel.findOne({ _id: userId });   // cydb - AWAIT
+        // Model.findOne : trả về "1 phần tử"   // Model.find : trả về "MẢNG phần tử"
+    
+        // CHƯA REVERT ĐC: HASH_PASSWORD về PASSWORD THƯỜNG
+        const userUpdate = {
+            _id: userDetail._id,
+            name: userDetail.name,
+            email: userDetail.email,
+            password: '',
+            avatarUser: '',
+        }
+
+        // 1.render ra "giao dien - CONFIRM UPDATE USER"
+        res.render('users/updateForm', { lastValueInput: userUpdate });
+    }
+    
+    module.exports.updateRequest = async (req, res) => {
+        // CYDB - DETAILS 3 - lấy dữ liệu từ URL bằng "HAI CHẤM - REQUEST.PARAMS"
+        const paramsUrl = req.params;
+        const userId = paramsUrl.id;
+        
+        let avatarPath = '';
+        if (req && req.file) {
+            avatarPath = '/' + req.file.path.split('\\').slice(1).join('/');
+            // ĐƯỜNG DẪN MẪU: "/uploads/830b36f504186b08f074ee0840c89edf"
+        }
+        console.log('=== avatarPath', avatarPath);
+
+        if (res.locals.passValidateCreateUser === true) {
+            // TH2 - "KO LỖI" : UPDATE USER cập nhật dữ liệu vào DB = MODEL.UPDATE ONE
+            // const userInsert = req.body;        // lấy dữ liệu từ FORM - POST: "REQ.BODY"
+            const hashPassWord = md5(req.body.password);    // 1.mã hóa password = MD5
+            const userInsert = {
+                _id: userId,
+                name: req.body.name,
+                email: req.body.email,
+                avatar: avatarPath,         // thêm AVATAR = "chuỗi STRING"
+                password: hashPassWord      // 1.mã hóa password = MD5
+            };
+            
+            // CYDB - DETAILS 4 - XÓA DỮ LIỆU = "Model.updateOne"
+            const userList = await userModel.updateOne({ _id: userId }, userInsert);     // thêm = MODEL.UPDATE_ONE
+            
+            // CYDB - sau khi xóa dữ liệu xong - thì hiển thị LISTUSERS mới = điều hướng về trang "/users" = RES.REDIRECT
+            res.redirect('/users');
+        } else {
+            // TH1 - "CÓ LỖI" : truyền vào mảng lỗi ERRORS để hiển thị
+            // hiển thị "GIÁ TRỊ CŨ mà USER nhập" = lastValueInput
+            console.log('res.locals.errorsCreateUser = ', res.locals.errorsCreateUser);
+            res.render('users/updateForm', { errors: res.locals.errorsCreateUser, lastValueInput: {...req.body,
+                _id: userId
+            } });
+        }
     }

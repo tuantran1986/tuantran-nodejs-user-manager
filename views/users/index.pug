@@ -38,7 +38,9 @@ block content
                                 a(href='/users/details/' + user._id, class="card-link custom") #{user.name}
                             td #{user.email}
                             td 
-                                a(href='/users/details/' + user._id, class="card-link") view details
+                                a(href='/users/details/' + user._id, class="card-link") viewDetails
                                 //- a(href='/users/' + user.id, class="card-link") viewDetails
+                                span.space /
+                                a(href='/users/update/' + user._id, class="card-link") update
                                 span.space /
                                 a(href='/users/delete/' + user._id, class="card-link") delete
