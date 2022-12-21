@@ -45,7 +45,7 @@ module.exports.loginRequest = async (req, res) => {
                 // "COOKIE - THƯỜNG" : chỉ có [ KEY + VALUE ]
                     // res.cookie('userId', currentUser._id);
                 // "SIGNED - COOKIE" : thêm OPTION = { signed: true } : để biến thành - "SIGNED_COOKIE"
-                    res.cookie('userId', currentUser._id, { signed: true });
+                await res.cookie('userId', currentUser._id, { signed: true });
             res.redirect('/');  // ĐÚNG PASSWORD => REDIRECT đến HomePage
         }
     }
