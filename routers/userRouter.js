@@ -29,7 +29,7 @@ const upload = multer({ dest: 'public/uploads/'});
             });
             // TEST-GET COOKIE: 
             userRouter.get('/test/getCookie', (req, res, next) => {
-                console.log('req.cookies = ', req.cookies);
+                // console.log('req.cookies = ', req.cookies);
                 res.send('TEST GET-COOKIE: backend - ĐỌC cookies = "cookieParser" + "req.cookies"');
             });
 

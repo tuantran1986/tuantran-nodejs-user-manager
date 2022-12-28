@@ -42,7 +42,7 @@ module.exports.getProductPaginationController = async (req, res, next) => {
 
 module.exports.getProductPaginationSearchController = async (req, res, next) => {
 
-    console.log('getProductPaginationSearchController : req.query', req.query);
+    // console.log('getProductPaginationSearchController : req.query', req.query);
     const nameKeySearch = req.query?.nameKeySearch || '';   // mac dinh = ''
     const descriptionKeySearch = req.query?.descriptionKeySearch || '';   // mac dinh = ''
     const page = parseInt(req.query?.page || 1);            // mac dinh = 1

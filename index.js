@@ -11,9 +11,9 @@ const PORT = 3000;
 // CẤU HÌNH - "COOKIE THƯỜNG"
     // app.use(cookieParser());
 // CẤU HÌNH - "SIGNED COOKIE" : có thêm - "SECRET STRING - là 1 chuỗi bất kỳ"
-console.log('process.env: ', process.env);
-console.log('process.env.SECRET_KEY_SIGNED_COOKIE: ', process.env.SECRET_KEY_SIGNED_COOKIE);
-console.log('process.env.BIEN_MOI_TRUONG_CACH_3: ', process.env.BIEN_MOI_TRUONG_CACH_3);
+// console.log('process.env: ', process.env);
+// console.log('process.env.SECRET_KEY_SIGNED_COOKIE: ', process.env.SECRET_KEY_SIGNED_COOKIE);
+// console.log('process.env.BIEN_MOI_TRUONG_CACH_3: ', process.env.BIEN_MOI_TRUONG_CACH_3);
 app.use(cookieParser(process.env.SECRET_KEY_SIGNED_COOKIE));
 // app.use(cookieParser('secretStringLaMotChuoiBatKy'));
 

@@ -33,8 +33,8 @@ const userModel = require('../models/userModel');
     module.exports.createRequest = async (req, res, next) => {
 
         // "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"
-        console.log('******   "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"     ******');
-        console.log('res.locals.passValidateCreateUser = ', res.locals.passValidateCreateUser);
+        // console.log('******   "GỬI-NHẬN" DỮ LIỆU - GIỮA CÁC MIDDLEWARE = "res.locals"     ******');
+        // console.log('res.locals.passValidateCreateUser = ', res.locals.passValidateCreateUser);
 
         // console.log('req', req);
         // console.log('req.file', req.file);
@@ -44,7 +44,7 @@ const userModel = require('../models/userModel');
             // ĐƯỜNG DẪN MẪU: "/uploads/830b36f504186b08f074ee0840c89edf"
             avatarPath = '/' + req.file.path.split('\\').slice(1).join('/');
         }
-        console.log('=== avatarPath', avatarPath);
+        // console.log('=== avatarPath', avatarPath);
 
 
         if (res.locals.passValidateCreateUser === true) {
@@ -66,7 +66,7 @@ const userModel = require('../models/userModel');
         } else {
             // TH1 - "CÓ LỖI" : truyền vào mảng lỗi ERRORS để hiển thị
             // hiển thị "GIÁ TRỊ CŨ mà USER nhập" = lastValueInput
-            console.log('res.locals.errorsCreateUser = ', res.locals.errorsCreateUser);
+            // console.log('res.locals.errorsCreateUser = ', res.locals.errorsCreateUser);
             res.render('users/createPage', { errors: res.locals.errorsCreateUser, lastValueInput: req.body });
         }
     }
@@ -149,7 +149,7 @@ const userModel = require('../models/userModel');
             avatarPath = '/' + req.file.path.split('\\').slice(1).join('/');
             // ĐƯỜNG DẪN MẪU: "/uploads/830b36f504186b08f074ee0840c89edf"
         }
-        console.log('=== avatarPath', avatarPath);
+        // console.log('=== avatarPath', avatarPath);
 
         if (res.locals.passValidateCreateUser === true) {
             // TH2 - "KO LỖI" : UPDATE USER cập nhật dữ liệu vào DB = MODEL.UPDATE ONE
@@ -171,7 +171,7 @@ const userModel = require('../models/userModel');
         } else {
             // TH1 - "CÓ LỖI" : truyền vào mảng lỗi ERRORS để hiển thị
             // hiển thị "GIÁ TRỊ CŨ mà USER nhập" = lastValueInput
-            console.log('res.locals.errorsCreateUser = ', res.locals.errorsCreateUser);
+            // console.log('res.locals.errorsCreateUser = ', res.locals.errorsCreateUser);
             res.render('users/updateForm', { errors: res.locals.errorsCreateUser, lastValueInput: {...req.body,
                 _id: userId
             } });

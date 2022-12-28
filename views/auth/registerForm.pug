@@ -5,22 +5,28 @@ block content
 
     //- 2. NỘI DUNG RIÊNG TỪNG BLOCK
 
+
     .container
-        .row.mt-2
+        .row.mt-2   
             div(class="col-3")
 
-            //- FORM : LOGIN
+            //- FORM : SEARCH_REQUEST
             //- ACTION:
             //- METHOD: POST - lấy data = "REQUEST.BODY" / cần BODY-PARSER
-            form(action='/auth/loginRequest', method='POST', class="col-6")
+            //- ENCTYPE: upload file !!!
+            form(action='/auth/registerRequest', method='POST', enctype='multipart/form-data' class="col-6")
                 //- HIỂN THỊ KEYSEARCH - sau khi có kết quả = "value=keyNameSearch"
-                h3(class="text-center mt-2") LOGIN - FORM
+                h3(class="text-center mt-2") REGISTER_USER_PAGE
 
                 //- "VALIDATE" - nếu có lỗi thì hiển thị "MESSAGE LỖI"
                 if errors
                     each err in errors
                         div(class="alert alert-danger" role="alert") #{err}
 
+                .form-group
+                    label(for='name') name
+                    input.form-control(type='text', name='name', value= lastValueInput && lastValueInput.name ? lastValueInput.name : '', id='name', placeholder='Enter name')
+                    br
                 .form-group
                     label(for='email') email
                     input.form-control(type='text', name='email', value= lastValueInput && lastValueInput.email ? lastValueInput.email : '', id='email', placeholder='Enter email')
@@ -29,6 +35,11 @@ block content
                     label(for='password') password
                     input.form-control(type='password', name='password', value= lastValueInput && lastValueInput.password ? lastValueInput.password : '', id='password', placeholder='Enter password')
                     br
+                .form-group
+                    label(for='avatarUser') avatarUser
+                    input.form-control(type='file', name='avatarUser', value= lastValueInput && lastValueInput.avatarUser ? lastValueInput.avatarUser : '', id='avatarUser')
+                    br
 
                 div(class="d-grid gap-2")
-                    button.btn.btn-primary.mt-2(type='submit') LOGIN
+                    button.btn.btn-primary.mt-2(type='submit') REGISTER
+                    a.btn.btn-danger.mt-2(href='/auth/logout') CANCEL

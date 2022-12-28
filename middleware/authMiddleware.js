@@ -2,7 +2,7 @@ const userModel = require("../models/userModel");
 
 module.exports.authRequire = async (req, res, next) => {
     // console.log('ĐỌC COOKIES = req.cookies', req.cookies);
-    console.log('ĐỌC COOKIES = req.signedCookies', req.signedCookies);
+    // console.log('ĐỌC COOKIES = req.signedCookies', req.signedCookies);
 
     // if (!req.cookies.userId) {
     if (!req.signedCookies.userId) {
